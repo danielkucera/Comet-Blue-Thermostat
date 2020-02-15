@@ -8,7 +8,7 @@
 */
 /**************************************************************************/
 CometBlue::CometBlue(std::string mac) : _deviceAddress(mac) {
-    //
+    _client = BLEDevice::createClient();
 }
 
 /**************************************************************************/
@@ -26,7 +26,6 @@ bool CometBlue::connect(std::string deviceName, uint32_t pin) {
 
     // connect to device
     BLEDevice::init(deviceName);
-    _client = BLEDevice::createClient();
     if (!_client->connect(_deviceAddress)) {
         return false;
     }
@@ -70,7 +69,6 @@ void CometBlue::disconnect(void) {
     }
     _client->disconnect();
     _connected = false;
-    _client = NULL;
     _remoteService = NULL;
 }
 
